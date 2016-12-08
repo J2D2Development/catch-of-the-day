@@ -1,0 +1,9 @@
+import React from 'react';
+
+export default class StorePicker extends React.Component {
+    render() {
+        return(
+            <h1>Welcome to the Store!</h1>
+        )
+    }
+}
