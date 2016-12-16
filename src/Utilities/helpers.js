@@ -9,3 +9,7 @@ function rando(arr) {
 export const nameify = function() {
     return `${rando(verbs)}-${rando(modifiers)}-${rando(nouns)}`;
 };
+
+export const formatPrice = function(cents) {
+    return '$' + ( (cents / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") );
+};
