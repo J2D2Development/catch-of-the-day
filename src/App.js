@@ -21,10 +21,23 @@ export default class App extends Component {
     }
 
     componentWillMount() {
+        //runs befoe app is rendered
         this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
             context: this,
             state: 'fishes'
         });
+
+        //check if order in localStorage
+        const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+        if(localStorageRef) {
+            this.setState({
+                order: JSON.parse(localStorageRef)
+            });
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
     }
 
     componentWillUnmount() {
@@ -63,7 +76,7 @@ export default class App extends Component {
                     {fishList}
                 </ul>
               </div>
-              <Order fishes={this.state.fishes} order={this.state.order} />
+              <Order params={this.props.params} fishes={this.state.fishes} order={this.state.order} />
               <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
             </div>
         )
