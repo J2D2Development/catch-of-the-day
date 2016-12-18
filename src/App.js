@@ -11,8 +11,11 @@ export default class App extends Component {
         super();
 
         this.addFish = this.addFish.bind(this);
+        this.updateFish = this.updateFish.bind(this);
+        this.removeFish = this.removeFish.bind(this);
         this.loadSamples = this.loadSamples.bind(this);
         this.addToOrder = this.addToOrder.bind(this);
+        this.removeFromOrder = this.removeFromOrder.bind(this);
         
         this.state = {
             fishes: {},
@@ -52,9 +55,30 @@ export default class App extends Component {
         this.setState({ fishes });
     }
 
+    updateFish(key, updatedFish) {
+        const fishes = {...this.state.fishes};
+        fishes[key] = updatedFish;
+        this.setState({ fishes });
+    }
+
+    removeFish(key) {
+        const fishes = {...this.state.fishes};
+        fishes[key] = null;
+        this.removeFromOrder(key);
+        this.setState({ fishes });
+    }
+
     addToOrder(key) {
         const order = { ...this.state.order };
         order[key] = order[key] + 1 || 1;
+        this.setState({ order });
+    }
+
+    removeFromOrder(key) {
+        //copy state first
+        const order = { ...this.state.order };
+        delete order[key];
+        //update state with edited copy
         this.setState({ order });
     }
 
@@ -76,8 +100,8 @@ export default class App extends Component {
                     {fishList}
                 </ul>
               </div>
-              <Order params={this.props.params} fishes={this.state.fishes} order={this.state.order} />
-              <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+              <Order params={this.props.params} fishes={this.state.fishes} order={this.state.order} removeFromOrder={this.removeFromOrder} />
+              <Inventory fishes={this.state.fishes} addFish={this.addFish} updateFish={this.updateFish} removeFish={this.removeFish} loadSamples={this.loadSamples} />
             </div>
         )
     }
