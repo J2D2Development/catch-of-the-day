@@ -101,7 +101,7 @@ export default class App extends Component {
                 </ul>
               </div>
               <Order params={this.props.params} fishes={this.state.fishes} order={this.state.order} removeFromOrder={this.removeFromOrder} />
-              <Inventory fishes={this.state.fishes} addFish={this.addFish} updateFish={this.updateFish} removeFish={this.removeFish} loadSamples={this.loadSamples} />
+              <Inventory fishes={this.state.fishes} addFish={this.addFish} updateFish={this.updateFish} removeFish={this.removeFish} loadSamples={this.loadSamples} storeId={this.props.params.storeId} />
             </div>
         )
     }
